@@ -71,7 +71,6 @@ export default defineComponent({
   components: {
 
   },
-
   methods: {
     goTo () {
       console.log('esto')

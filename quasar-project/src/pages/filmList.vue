@@ -113,7 +113,8 @@ export default {
   },
   methods: {
     getFilm (id) {
-      window.location.href = 'http://localhost:8080/#/film?id=' + id
+      // window.location.href = 'http://localhost:8080/#/film?id=' + id
+      this.$router.push('film?id=' + id)
     },
     goTo (event, row) {
       // Here you can navigate to where ever you have to
@@ -146,7 +147,8 @@ export default {
       console.log('Comprobando sesion: ' + ses)
 
       if (ses === 'undefined' || ses === '' || ses === null) {
-        document.location.href = 'http://localhost:8080/#/login'
+        // document.location.href = 'http://localhost:8080/#/login'
+        this.$router.push('login')
         console.log('NO SE HA INICIADO SESION')
         // console.log('ESE USUARIO ' + otherValue)
       }

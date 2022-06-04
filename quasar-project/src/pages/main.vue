@@ -196,12 +196,13 @@ export default {
   },
   methods: {
     test (id) {
-      window.location.href = 'http://localhost:8080/#/film?id=' + id
+      // window.location.href = 'http://localhost:8080/#/film?id=' + id
+      this.$router.push('film?id=' + id)
     },
     goTo (event, row) {
       // Here you can navigate to where ever you have to
-      // this.$router.push('film?id=' + row.id)
-      window.location.href = 'http://localhost:8080/#/film?id=' + row.id
+      this.$router.push('film?id=' + row.id)
+      // window.location.href = 'http://localhost:8080/#/film?id=' + row.id
       console.log('aaaaaa ' + row)
     },
     getPosts () {
@@ -243,7 +244,8 @@ export default {
       console.log('SESION: ' + ses)
 
       if (ses === 'undefined' || ses === '' || ses === null) {
-        document.location.href = 'http://localhost:8080/#/login'
+        // document.location.href = 'http://localhost:8080/#/login'
+        this.$router.push('login')
         console.log('NO SE HA INICIADO SESION')
         // console.log('ESE USUARIO ' + otherValue)
       }

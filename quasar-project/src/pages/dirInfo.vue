@@ -58,7 +58,7 @@ import { useQuasar } from 'quasar'
 export default {
   name: 'dirInfo',
   data () {
-    // ----RELLENAR TABLA
+    // recuperar los datos para pasarlos al HTML
     return {
       columns: [
         {
@@ -95,13 +95,16 @@ export default {
     }
   },
   mounted () {
+    // Al llegar a esta página se comprueba la sesión
     this.sesion()
-
+    // Si la sesión esta iniciada, se muestra la información de la película
     this.getPosts()
   },
   methods: {
     getFilm (id) {
-      window.location.href = 'http://localhost:8080/#/film?id=' + id
+      // funcion que se llama para redirigir a la página que muestra la informacion de la pelicula
+      // window.location.href = 'http://localhost:8080/#/film?id=' + id
+      this.$router.push('film?id=' + id)
     },
     goTo (event, row) {
       // Here you can navigate to where ever you have to
@@ -110,8 +113,10 @@ export default {
       console.log('aaaaaa ' + row)
     },
     getPosts () {
+      // llamada a la api para obtener la informacion
       this.$axios.get('http://localhost:8069/gestion/apirest/peliculas?data={"director":"' + this.$route.query.director + '"}')
         .then((res) => {
+          // guardar en variables la información obtenida para
           console.log('uuuuuu ' + res.data[0].director[1])
           this.rows = res.data
           this.lab = res.data
@@ -122,12 +127,15 @@ export default {
         })
     },
     sesion () {
+      // comprobar si la sesión está iniciada
       const $q = useQuasar()
       const ses = $q.sessionStorage.getItem('user')
       console.log('Comprobando sesion: ' + ses)
 
       if (ses === 'undefined' || ses === '' || ses === null) {
-        document.location.href = 'http://localhost:8080/#/login'
+        // si no lo esta, redirige al login
+        // document.location.href = 'http://localhost:8080/#/login'
+        this.$router.push('login')
         console.log('NO SE HA INICIADO SESION')
         // console.log('ESE USUARIO ' + otherValue)
       }

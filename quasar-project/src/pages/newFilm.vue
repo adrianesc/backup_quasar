@@ -79,7 +79,8 @@ export default {
       console.log('Comprobando sesion: ' + ses)
 
       if (ses === 'undefined' || ses === '' || ses === null) {
-        document.location.href = 'http://localhost:8080/#/login'
+        // document.location.href = 'http://localhost:8080/#/login'
+        this.$router.push('login')
         console.log('NO SE HA INICIADO SESION')
         // console.log('ESE USUARIO ' + otherValue)
       }

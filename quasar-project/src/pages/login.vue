@@ -177,9 +177,9 @@ export default {
             console.log(res.data)
             if (res.data === 'existe') {
               console.log('pasas')
-              document.location.href = 'http://localhost:8080/#/?user=' + this.user
+              // document.location.href = 'http://localhost:8080/#/?user=' + this.user
 
-              // this.$router.push('?user=' + this.user)
+              this.$router.push('/?user=' + this.user)
             } else {
               console.log('contraseña incorrecta')
             }

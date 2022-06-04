@@ -82,6 +82,7 @@ export default defineComponent({
   components: {
 
   },
+  // Cada vez que se haga click en un botón del layout, se llamará a esta función para que te lleve a otro sitio
 
   methods: {
     goTo (url) {

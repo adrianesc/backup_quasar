@@ -156,7 +156,6 @@ export default {
   methods: {
     getPosts () {
       // const item = SessionStorage.get.item('user')
-      // console.log('ESE USER PRIMO ' + item)
       this.$axios.get('http://localhost:8069/gestion/apirest/peliculas?data={"id":"' + this.$route.query.id + '"}')
         .then((res) => {
           // this.src = ref(res.data.imagen)
@@ -198,7 +197,6 @@ export default {
         })
     },
     recommend (genID, id) {
-      // console.log('vaya prueba de la parra' + gen)
       console.log('aaaaaaaaaaaaaaaaaa' + id)
       this.$axios.get('http://localhost:8069/gestion/apirest/peliculas?data={"genero":' + genID + '}')
         .then((res) => {
@@ -275,9 +273,9 @@ export default {
       console.log('Comprobando sesion: ' + ses)
 
       if (ses === 'undefined' || ses === '' || ses === null) {
-        document.location.href = 'http://localhost:8080/#/login'
+        // document.location.href = 'http://localhost:8080/#/login'
+        this.$router.push('login')
         console.log('NO SE HA INICIADO SESION')
-        // console.log('ESE USUARIO ' + otherValue)
       }
     },
     goTo (id, tipo) {
@@ -286,18 +284,21 @@ export default {
       // this.$router.push('film?id=' + row.id)
 
       if (tipo === 'p') {
-        window.location.href = 'http://localhost:8080/#/film?id=' + id
+        // window.location.href = 'http://localhost:8080/#/film?id=' + id
+        this.$router.push('/film?id=' + id)
+        // this.$router.push('/film?id=' + id)
       } else if (tipo === 'd') {
-        window.location.href = 'http://localhost:8080/#/director?director=' + id
+        // window.location.href = 'http://localhost:8080/#/director?director=' + id
+        this.$router.push('/director?director=' + id)
+        // this.$router.push('/director?director=' + id)
       } else if (tipo === 'g') {
-        window.location.href = 'http://localhost:8080/#/genre?genre=' + id
+        // window.location.href = 'http://localhost:8080/#/genre?genre=' + id
+        this.$router.push('/genre?genre=' + id)
+        // this.$router.push('/genre?genre=' + id)
       }
-      window.location.reload()
-
-      console.log('aaaaaa ' + id)
+      // window.location.reload()
     },
     comments (id) {
-      console.log('COMENTARIOS LOCO' + id)
       this.$axios.get('http://localhost:8069/gestion/apirest/comentarios?data={"pelicula":' + id + '}')
         .then((res) => {
           console.log('1 ' + res)
