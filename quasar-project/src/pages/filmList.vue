@@ -52,8 +52,7 @@
 </template>
 
 <script>
-// import { defineComponent } from 'vue'
-// http://192.168.0.30:8069/gestion/apirest/peliculas?data={"id":"1"}
+
 import { useQuasar } from 'quasar'
 
 import { ref } from 'vue'
@@ -131,9 +130,6 @@ export default {
           this.rows = res.data
           this.lab = res.data
           console.log(this.rows)
-          // this.dir = res.data.director[1]
-          console.log('rrrrr' + res.data[1].imagen)
-          // this.rows = res.data
 
           console.log(res)
         })
@@ -147,10 +143,8 @@ export default {
       console.log('Comprobando sesion: ' + ses)
 
       if (ses === 'undefined' || ses === '' || ses === null) {
-        // document.location.href = 'http://localhost:8080/#/login'
         this.$router.push('login')
         console.log('NO SE HA INICIADO SESION')
-        // console.log('ESE USUARIO ' + otherValue)
       }
     }
   },

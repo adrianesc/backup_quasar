@@ -104,11 +104,7 @@ Registro de nuevo usuario
                    class="full-width text-white"
                    :label="btnLabel" />
           </q-card-actions>
-          <q-card-section
-              v-if="!register"
-              class="text-center q-pa-sm">
-            <p class="text-grey-6">¿Olvidaste tu contraseña?</p>
-          </q-card-section>
+
         </q-card>
       </div>
     </div>
@@ -148,20 +144,7 @@ export default {
   },
 
   methods: {
-    required (val) {
-      // return (val && val.length > 0 || 'Поле должно быть заполнено')
-    },
-    diffPassword (val) {
-      // const val2 = this.$refs.password.value
-      // return (val && (val === val2) || 'Пароль не совпадает!')
-    },
-    short (val) {
-      // return (val && val.length > 3 || 'Значение слишком короткое')
-    },
-    isuser (val) {
-      const userPattern = /^(?=[a-zA-Z0-9@._%+-]{6,254}$)[a-zA-Z0-9._%+-]{1,64}@(?:[a-zA-Z0-9-]{1,63}\.){1,8}[a-zA-Z]{2,63}$/
-      return (userPattern.test(val) || 'Por favor introduzca una dirección de correo electrónico válida')
-    },
+
     submit () {
       if (this.register) {
         this.$refs.user.validate()
@@ -190,16 +173,6 @@ export default {
             console.log(err)
           })
       }
-
-      /* if (!this.register) {
-        if (!this.$refs.user.hasError && (!this.$refs.password.hasError)) {
-          this.$q.notify({
-            icon: 'done',
-            color: 'positive',
-            message: 'Autorización'
-          })
-        }
-      } */
     },
     switchTypeForm () {
       this.register = !this.register

@@ -206,7 +206,7 @@ export default {
       console.log('aaaaaa ' + row)
     },
     getPosts () {
-      this.$axios.get('http://localhost:8069/gestion/peliculas')
+      this.$axios.get('http://localhost:8069/peliculas')
         .then((res) => {
           // const cars = []
           this.rows = res.data

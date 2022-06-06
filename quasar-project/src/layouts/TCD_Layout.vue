@@ -8,15 +8,15 @@
         </q-toolbar-title>
 
       <q-btn-group push style="text-align:left;color:#white; text-shadow: 3px 3px 2px #fb93fc;">
-        <q-btn push label="Inicio" icon="menu" @click="goTo('http://localhost:8080/#/')"/>
-        <q-btn push label="Listado de Peliculas" icon="movie"  @click="goTo('http://localhost:8080/#/filmList')"/>
-        <q-btn push label="Géneros" icon="visibility" @click="goTo('http://localhost:8080/#/genreList')"/>
-        <q-btn push label="Directores" icon="visibility"  @click="goTo('http://localhost:8080/#/directorList')"/>
-        <q-btn push label="Añadir" icon="playlist_add" @click="goTo('http://localhost:8080/#/newfilm')"/>
+        <q-btn push label="Inicio" icon="menu" @click="goTo('http://localhost:8080/')"/>
+        <q-btn push label="Listado de Peliculas" icon="movie"  @click="goTo('http://localhost:8080/filmList')"/>
+        <q-btn push label="Géneros" icon="visibility" @click="goTo('http://localhost:8080/genreList')"/>
+        <q-btn push label="Directores" icon="visibility"  @click="goTo('http://localhost:8080/directorList')"/>
+        <q-btn push label="Añadir" icon="playlist_add" @click="goTo('http://localhost:8080/newfilm')"/>
 
       </q-btn-group>
     <q-space />
-        <q-btn push color="red" label="SALIR" icon="logout" href="http://localhost:8080/#/login" @click="goTo('http://localhost:8080/#/login')"/>
+        <q-btn push color="red" label="SALIR" icon="logout" href="http://localhost:8080/login" @click="goTo('http://localhost:8080/login')"/>
 
       </q-toolbar>
 
@@ -87,7 +87,7 @@ export default defineComponent({
   methods: {
     goTo (url) {
       window.location.href = url
-      window.location.reload()
+      // window.location.reload()
     }
   },
 

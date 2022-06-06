@@ -51,8 +51,7 @@
 </template>
 
 <script>
-// import { defineComponent } from 'vue'
-// import { ref } from 'vue'
+
 import { useQuasar } from 'quasar'
 
 export default {

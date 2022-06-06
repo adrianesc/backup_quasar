@@ -20,8 +20,7 @@
 </template>
 
 <script>
-// import { defineComponent } from 'vue'
-// import { ref } from 'vue'
+
 import { useQuasar } from 'quasar'
 
 export default {
@@ -74,7 +73,6 @@ export default {
         // document.location.href = 'http://localhost:8080/#/login'
         this.$router.push('login')
         console.log('NO SE HA INICIADO SESION')
-        // console.log('ESE USUARIO ' + otherValue)
       }
     }
   }

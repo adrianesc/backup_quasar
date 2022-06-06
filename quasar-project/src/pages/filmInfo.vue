@@ -108,14 +108,25 @@
       </q-item>
 
     </q-card>
+     <q-form
+          @submit="onSubmit"
+          @reset="onReset"
+          class="q-gutter-md"
+        >
+
+          <q-input  standout="bg-cyan-4
+ text-white" v-model="comentario" label="Deja tu comentario..." :dense="dense" />
+
+      <div>
+          <q-btn label="Submit" type="submit" color="primary"/>
+          <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
+      </div>
+      </q-form>
   </div>
   </q-page>
 </template>
 
 <script>
-// import { defineComponent } from 'vue'
-// http://192.168.0.30:8069/gestion/apirest/peliculas?data={"id":"1"}
-// import { dir } from 'console'
 import { ref } from 'vue'
 import { useQuasar } from 'quasar'
 
@@ -144,7 +155,8 @@ export default {
       urlrcm2: [],
       comentarios: [],
       genID: [],
-      dirID: []
+      dirID: [],
+      comentario: null
 
     }
   },
@@ -155,22 +167,15 @@ export default {
   },
   methods: {
     getPosts () {
-      // const item = SessionStorage.get.item('user')
       this.$axios.get('http://localhost:8069/gestion/apirest/peliculas?data={"id":"' + this.$route.query.id + '"}')
         .then((res) => {
-          // this.src = ref(res.data.imagen)
-          this.src = res.data.img
+          this.src = ref(res.data.imagen)
           this.lorem = res.data.sinopsis
           this.dir = res.data.director
           console.log(res.data.director[0])
           this.ident = res.data.id
           this.pts = res.data.puntuacion
           this.titulo = res.data.nombre
-
-          // const nDir = res.data.director.substring(res.data.director.indexOf('[') + 1, res.data.director.indexOf(','))
-
-          this.url = 'http://localhost:8080/#/director?director='.concat('', res.data.dirID)
-          this.url2 = 'http://localhost:8080/#/genre?genre='.concat('', res.data.genID)
 
           this.gen = res.data.genero
           this.genID = res.data.genID
@@ -197,7 +202,6 @@ export default {
         })
     },
     recommend (genID, id) {
-      console.log('aaaaaaaaaaaaaaaaaa' + id)
       this.$axios.get('http://localhost:8069/gestion/apirest/peliculas?data={"genero":' + genID + '}')
         .then((res) => {
           console.log('ee ' + res.data)
@@ -214,7 +218,7 @@ export default {
             num = num + 1
           }
           console.log('REC 1 = ' + num)
-          this.urlrcm0 = 'http://localhost:8080/#/film?id='.concat('', this.rcm0.id)
+          this.urlrcm0 = 'http://localhost:8080/film?id='.concat('', this.rcm0.id)
 
           let num2 = 0
           do {
@@ -225,7 +229,7 @@ export default {
           // this.rcm1 = res.data[num + 2]
           let num3 = 0
           console.log('REC 2 = ' + num2)
-          this.urlrcm1 = 'http://localhost:8080/#/film?id='.concat('', this.rcm1.id)
+          this.urlrcm1 = 'http://localhost:8080/film?id='.concat('', this.rcm1.id)
 
           do {
             num3 = Math.floor(Math.random() * res.data.length)
@@ -233,7 +237,7 @@ export default {
             // console.log('num3 ' + num3)
           } while ((num3 === num) || (num3 === id) || (num3 === num2))
           console.log('REC 3 =' + num3)
-          this.urlrcm2 = 'http://localhost:8080/#/film?id='.concat('', this.rcm2.id)
+          this.urlrcm2 = 'http://localhost:8080/film?id='.concat('', this.rcm2.id)
           console.log('recomendaciones ' + this.rcm0.id + ' ' + this.rcm1.nombre + ' ' + this.rcm2.nombre + ' ' + num + ' ' + num2 + ' ' + num3)
         })
         .catch((err) => {
@@ -242,18 +246,17 @@ export default {
     },
     withAtClick (id, oldPts) {
       const puntos = (this.ratingModel + oldPts) / 2
-      // this.$axios
-      // .patch('http://localhost:8069/gestion/apirest/peliculas?data={"id":"3","puntuacion":"2"}')
+      document.getElementById('puntuacion').innerHTML = Math.round(puntos * 100) / 100
 
       this.$axios.get(
-        'http://localhost:8069/editar/pelicula/' + id + '/p/' + puntos
+        'http://localhost:8069/editar/pelicula/' + id + '/p/' + Math.round(puntos * 100) / 100
+
       ).then(response => {
         console.log('Success ========>', response)
       })
         .catch(error => {
           console.log('Error ========>', error)
         })
-      // console.log('@click: ', this.ratingModel + ' ' + ident + ' ' + oldPts + ' ' + puntos)
     },
     puntua (pts) {
       console.log('puntos recibidos ' + pts)
@@ -282,10 +285,11 @@ export default {
       // Here you can navigate to where ever you have to
 
       // this.$router.push('film?id=' + row.id)
-
+      console.log('entra al goto ' + id + ' -- ' + tipo)
       if (tipo === 'p') {
+        console.log('entra al p')
         // window.location.href = 'http://localhost:8080/#/film?id=' + id
-        this.$router.push('/film?id=' + id)
+        this.$router.push('/film?id=5')
         // this.$router.push('/film?id=' + id)
       } else if (tipo === 'd') {
         // window.location.href = 'http://localhost:8080/#/director?director=' + id
@@ -309,6 +313,10 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    onSubmit () {
+      // console.log(URL.createObjectURL(this.portada))
+      this.$axios.post('http://localhost:8069/gestion/apirest/comentarios?data={"id":"1","usuario":"' + 2 + '","pelicula":"' + this.ident + '","comentario":"' + this.comentario + '"}')
     }
 
   }
@@ -319,28 +327,9 @@ export default {
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Jost&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
-//font-family: 'Dancing Script', cursive;
 @import url('https://fonts.googleapis.com/css2?family=Smooch&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
 
-//div {
-//  border: 1px solid
-
-//}
-/*<q-item
-    clickable
-    tag="a"
-    target="_blank"
-    :href="link"
-  >
-  el texto
-  </q-item>
-
-  https://codepen.io/Pratik__007/pen/bGwpyyo
-  https://quasar.dev/quasar-cli-webpack/developing-electron-apps/build-commands
-  https://quasar.dev/quasar-cli-webpack/developing-capacitor-apps/build-commands
-  https://quasar.dev/quasar-cli-webpack/developing-cordova-apps/build-commands
-  */
 #ptcn{
   font-size: 160%;
   color:#5bdede;

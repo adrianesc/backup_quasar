@@ -12,15 +12,8 @@
           <q-input standout="bg-cyan-12 text-purple-12" v-model="director" label="Director" :dense="dense" />
           <q-input standout="bg-cyan-12 text-purple-12" v-model="genero" label="Género" :dense="dense" />
           <q-input v-model="sinopsis" label="Sinopsis" standout="bg-cyan-12 text-purple-12" filled type="textarea"/>
-          <q-input v-model="imagen" filled type="textarea" standout="bg-cyan-12 text-purple-12" label="URL imagen" />
-
-          <q-input
-            @update:model-value="val => { file = val[0] }"
-            v-model="portada"
-            filled
-            type="file"
-            hint="Native file"
-          />
+          <q-input standout="bg-cyan-12 text-purple-12" v-model="imagen" label="Portada" :dense="dense" />
+          <q-input standout="bg-cyan-12 text-purple-12" v-model="trailer" label="Tráiler" :dense="dense" />
 
       <div>
           <q-btn label="Submit" type="submit" color="primary"/>
@@ -54,7 +47,8 @@ export default {
       director: null,
       genero: null,
       sinopsis: null,
-      portada: null
+      imagen: null,
+      trailer: null
 
     }
   },
@@ -70,8 +64,8 @@ export default {
       console.log('aaaaaa ' + row)
     },
     onSubmit () {
-      console.log(URL.createObjectURL(this.portada))
-      this.$axios.post('http://localhost:8069/gestion/apirest/posibles_peliculas?data={"id":"1","nombre":"' + this.titulo + '","director":"' + this.director + '","genero":"' + this.genero + '","sinopsis":"' + this.sino + '"}')
+      // console.log(URL.createObjectURL(this.portada))
+      this.$axios.post('http://localhost:8069/gestion/apirest/posibles_peliculas?data={"id":"1","nombre":"' + this.titulo + '","director":"' + this.director + '","genero":"' + this.genero + '","sinopsis":"' + this.sinopsis + '","imagen":"' + this.imagen + '","trailer":"' + this.trailer + '"}')
     },
     sesion () {
       const $q = useQuasar()

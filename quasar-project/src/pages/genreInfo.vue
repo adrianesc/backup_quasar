@@ -2,14 +2,45 @@
   <q-page>
 
     <div class="row">
-      <q-table :title="dName" @row-click="goTo" :rows="rows" :columns="columns" row-key="name" class="col" hide-bottom>
-
-     <template v-slot:body-cell-name="props">
-        <q-td :props="props">
-          <img src="https://static.posters.cz/image/1300/posters/the-batman-i-am-the-shadows-i122326.jpg">
-        </q-td>
+ <q-table
+      grid
+      dark
+      bordered
+      color="accent"
+      card-class="bg-primary"
+      :title="dName"
+      :rows="rows"
+      :columns="columns"
+      row-key="id"
+      style="margin-left: 7%;margin-right: 3%;"
+      v-model:pagination="pagination"
+    >
+      <template v-slot:item="props">
+        <q-card bordered dark class="q-ma-sm tileBGColor" style="max-width: 300px; min-width: 300px; cursor: pointer" @click="getFilm(props.row.id)">
+          <div class="q-ma-sm" >
+            <div>
+              <q-img :src='props.row.imagen' basic />
+            </div>
+            <div >
+              <div class="text-h6">
+                {{props.row.nombre}}
+              </div>
+            </div>
+            <div >
+              <div class="row text-h8">
+                <div class="column col-4">Director:</div>
+                <div class="column">{{props.row.director[1]}}</div>
+              </div>
+            </div>
+            <div >
+              <div class="row text-h8">
+                <div class="column col-4">Puntuación:</div>
+                <div class="column">{{props.row.puntuacion}}</div>
+              </div>
+            </div>
+          </div>
+        </q-card>
       </template>
-
     </q-table>
     </div>
     <div>
@@ -20,8 +51,7 @@
 </template>
 
 <script>
-// import { defineComponent } from 'vue'
-// import { ref } from 'vue'
+
 import { useQuasar } from 'quasar'
 
 export default {
@@ -34,7 +64,28 @@ export default {
           name: 'nombre',
           label: 'NOMBRE',
           field: 'nombre',
-          align: 'left',
+          align: 'center',
+          sortable: true
+        },
+        {
+          name: 'director',
+          label: 'DIRECTOR',
+          field: 'director',
+          align: 'center',
+          sortable: true
+        },
+        {
+          name: 'Nota',
+          label: 'Puntuación',
+          field: 'puntuacion',
+          align: 'center',
+          sortable: true
+        },
+        {
+          name: 'img',
+          label: 'IMAGEN',
+          field: 'portada',
+          align: 'center',
           sortable: true
         }
       ],
